@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "6996344898",
+    "project_id": "watercolor-db42c",
+    "storage_bucket": "watercolor-db42c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:6996344898:android:0362e7fb1cce6d762baddb",
+        "android_client_info": {
+          "package_name": "watercolor.com.example.final_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "6996344898-ul7mo46i1oa5addfs7hnmus8gu8uufml.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvmXlY2PtS_ri86ObP6wo-8NBEZn_Ol_I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "6996344898-ul7mo46i1oa5addfs7hnmus8gu8uufml.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
