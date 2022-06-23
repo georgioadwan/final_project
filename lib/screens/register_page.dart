@@ -26,7 +26,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 padding: EdgeInsets.only(
                     top: 20.0
                 ),
-                child: Text("Welcome User, \nLogin to your account",
+                child: Text("Create A New Account",
                   textAlign: TextAlign.center,
                   style: Constants.boldHeading,
                 ),
@@ -40,11 +40,11 @@ class _RegisterPageState extends State<RegisterPage> {
                     hintText: "Password" ,
                   ),
                   CustomBtn(
-                    text: "Login",
+                    text: "Create New Account",
                     onPressed: (){
                       print("Create New Account");
                     },
-                    outlineBtn: true,
+                    outlineBtn: false,
                   ),
                 ],
               ),
@@ -55,9 +55,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 child: CustomBtn(
                   text: "Back to Login",
                   onPressed: (){
-                    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
                       Navigator.pop(context);
-                    });
                   },
                   outlineBtn: true,
                 ),

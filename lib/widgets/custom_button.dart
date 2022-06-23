@@ -11,7 +11,13 @@ class CustomBtn extends StatelessWidget {
   Widget build(BuildContext context) {
     bool? outLineBtn = outlineBtn;
     return GestureDetector(
-      onTap: onPressed(),
+      onTap: (){
+        if (onPressed != null) {
+          onPressed();
+        } else {
+          return;
+        }
+      },
       child: Container(
       height: 65.0,
       alignment: Alignment.center,

@@ -45,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
                 onPressed: (){
                   print("Click to login");
                 },
-                outlineBtn: true,
+                outlineBtn: false,
               ),
             ],
           ),
