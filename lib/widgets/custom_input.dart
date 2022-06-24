@@ -1,19 +1,20 @@
+
 import 'package:final_project/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CustomInput extends StatelessWidget {
-  final String hintText;
-  final Function(String) onChanged;
-  final Function(String) onSubmitted;
-  final FocusNode focusNode;
-  final TextInputAction textInputAction;
-  final bool isPasswordField;
-  CustomInput({required this.hintText, required this.onChanged, required this.onSubmitted, required this.focusNode, required this.textInputAction, required this.isPasswordField });
+  final String? hintText;
+  final Function? onChanged;
+  final Function? onSubmitted;
+  final FocusNode? focusNode;
+  final TextInputAction? textInputAction;
+  final bool? isPasswordField;
+  CustomInput({this.hintText, this.onChanged, this.onSubmitted, this.focusNode, this.textInputAction, this.isPasswordField });
 
   @override
   Widget build(BuildContext context) {
-    bool? _isPasswordField = isPasswordField;
+
     return Container(
       margin: EdgeInsets.symmetric(
         vertical: 8.0,
@@ -24,10 +25,15 @@ class CustomInput extends StatelessWidget {
         borderRadius: BorderRadius.circular(12.0),
       ),
       child: TextField(
-        obscureText: _isPasswordField,
+        obscureText: isPasswordField ?? false,
         focusNode: focusNode,
-        onChanged: onChanged(),
-        onSubmitted: onSubmitted(),
+        onChanged: (value) {
+          if (onChanged != null) {
+            onChanged! (value);
+          } else {
+            return;
+          }
+        },
         textInputAction: textInputAction,
         decoration: InputDecoration(
           border: InputBorder.none,

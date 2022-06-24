@@ -1,7 +1,6 @@
 import 'package:final_project/screens/register_page.dart';
 import 'package:final_project/widgets/custom_button.dart';
 import 'package:final_project/widgets/custom_input.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../constants.dart';
@@ -46,6 +45,7 @@ class _LoginPageState extends State<LoginPage> {
                   print("Click to login");
                 },
                 outlineBtn: false,
+                isLoading: false,
               ),
             ],
           ),
@@ -63,6 +63,7 @@ class _LoginPageState extends State<LoginPage> {
               );
             },
             outlineBtn: true,
+                isLoading: false,
                 ),
               ),
             ],

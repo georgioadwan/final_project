@@ -10,12 +10,14 @@ class RegisterPage extends StatefulWidget {
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
+
+
 }
 
 class _RegisterPageState extends State<RegisterPage> {
 
   // Build an alert dialog to display an error
-  Future<void> _alertDialogBuilder() async {
+  /*Future<void> _alertDialogBuilder() async {
     return showDialog(
         context: context,
         barrierDismissible: false, //this will force the dialog to only be closed
@@ -35,7 +37,9 @@ class _RegisterPageState extends State<RegisterPage> {
       );
     }
     );
-  }
+  }*/
+
+  // Create a new user account
 
   // Default Form Loading State
   bool _registerFormLoading = false;
@@ -93,7 +97,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   CustomInput(
                     hintText: "Password" ,
                     onChanged: (value){
-                      _regiterPassword = value;
+                      _registerPassword = value;
                     },
                     focusNode: _passwordFocusNode,
                     isPasswordField: true,
@@ -104,9 +108,9 @@ class _RegisterPageState extends State<RegisterPage> {
                       //print("Create New Account");
                       // Open the dialog
                       //_alertDialogBuilder();
-                      setState(){
+                      setState (() {
                         _registerFormLoading = true;
-                      }
+                      });
                     },
                     outlineBtn: false,
                     isLoading: _registerFormLoading,
@@ -123,7 +127,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       Navigator.pop(context);
                   },
                   outlineBtn: true,
-                  isLoading: _registerFormLoading,
+                  isLoading: false //_registerFormLoading,
                 ),
               ),
             ],

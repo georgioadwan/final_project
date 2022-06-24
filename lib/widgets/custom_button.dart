@@ -1,21 +1,18 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CustomBtn extends StatelessWidget {
   final String? text;
-  final Function onPressed;
+  final Function? onPressed;
   final bool outlineBtn;
   final bool isLoading;
-  CustomBtn({required this.text,required this.onPressed,required this.outlineBtn, required this.isLoading});
+  CustomBtn({this.text, this.onPressed, required this.outlineBtn, required this.isLoading});
 
   @override
   Widget build(BuildContext context) {
-    bool? outLineBtn = outlineBtn;
-    bool? _isLoading = isLoading;
     return GestureDetector(
       onTap: (){
         if (onPressed != null) {
-          onPressed();
+          onPressed!();
         } else {
           return;
         }
@@ -23,7 +20,7 @@ class CustomBtn extends StatelessWidget {
       child: Container(
       height: 65.0,
       decoration: BoxDecoration(
-        color: outLineBtn ? Colors.transparent : Colors.black,
+        color: outlineBtn ? Colors.transparent : Colors.black,
         border: Border.all(
           color: Colors.black,
           width: 2.0,
@@ -37,7 +34,7 @@ class CustomBtn extends StatelessWidget {
       child: Stack(
         children: [
           Visibility(
-            visible: _isLoading ? false : true,
+            visible: isLoading ? false : true,
             child: Center(
               child: Text (
               text ?? "Text",
@@ -50,7 +47,7 @@ class CustomBtn extends StatelessWidget {
             ),
           ),
           Visibility(
-            visible: _isLoading,
+            visible: isLoading,
             child: Center(
               child: SizedBox(
                 height: 30.0,
