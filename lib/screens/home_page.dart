@@ -10,7 +10,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   late PageController _tabsPageController;
   int _selectedTab = 0;
   @override
@@ -28,48 +27,47 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column (
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(
-            child: PageView(
-              controller: _tabsPageController,
-          onPageChanged: (num){
-                setState ((){
-                  _selectedTab = num;
-                });
-          },
-          children: [
-          Container (
-          child: Center(
-          child: Text("Homepage"),
-             ),
-           ),
-            Container (
-              child: Center(
-                child: Text("Search Page"),
-              ),
-            ),
-            Container (
-              child: Center(
-                child: Text("Saved Page"),
-              ),
-            ),
-        ],
-          ),
-          ),
-          BottomTabs(
-            selectedTab: _selectedTab,
-            tabPressed: (num) {
-              setState ((){
-                _tabsPageController.animateToPage(num,
-                    duration: Duration(microseconds: 300),
-                    curve: Curves.easeOutCubic);
+        body: Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Expanded(
+          child: PageView(
+            controller: _tabsPageController,
+            onPageChanged: (num) {
+              setState(() {
+                _selectedTab = num;
               });
             },
+            children: [
+              Container(
+                child: Center(
+                  child: Text("Homepage"),
+                ),
+              ),
+              Container(
+                child: Center(
+                  child: Text("Search Page"),
+                ),
+              ),
+              Container(
+                child: Center(
+                  child: Text("Saved Page"),
+                ),
+              ),
+            ],
           ),
-        ],
-        )
-      );
+        ),
+        BottomTabs(
+          selectedTab: _selectedTab,
+          tabPressed: (num) {
+            setState(() {
+              _tabsPageController.animateToPage(num,
+                  duration: Duration(microseconds: 300),
+                  curve: Curves.easeOutCubic);
+            });
+          },
+        ),
+      ],
+    ));
   }
 }

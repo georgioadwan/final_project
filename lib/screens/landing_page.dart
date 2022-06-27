@@ -8,15 +8,15 @@ import 'package:flutter/material.dart';
 class LandingPage extends StatelessWidget {
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
   @override
-  Widget build (BuildContext context) {
+  Widget build(BuildContext context) {
     return FutureBuilder(
         future: _initialization,
         builder: (context, snapshot) {
           // if snapshot has error
-          if (snapshot.hasError){
-            return Scaffold (
-              body: Center (
-                child: Text ("Error: ${snapshot.error}"),
+          if (snapshot.hasError) {
+            return Scaffold(
+              body: Center(
+                child: Text("Error: ${snapshot.error}"),
               ),
             );
           }
@@ -25,51 +25,49 @@ class LandingPage extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.done) {
             //StreamBuilder can check the login state live
             return StreamBuilder(
-              stream: FirebaseAuth.instance.authStateChanges(),
-              builder: (context, streamSnapshot) {
-                if (streamSnapshot.hasError) {
-                  return Scaffold(
-                    body: Center(
-                      child: Text("Error: ${streamSnapshot.error}"),
-                    ),
-                  );
-                }
-
-                // Connection state active - Do the user login inside the if statement
-                if (streamSnapshot.connectionState == ConnectionState.active) {
-                  // Get the user
-                  User? user = streamSnapshot.data as User?;
-
-                  //if the user is null, we're not logged in
-                  if (user == null) {
-                    // head to login page
-                    return LoginPage();
-                  } else {
-                    // The user is logged in head to homepage
-                    return HomePage();
-                  }
-                }
-                else {
-                  // checking the auth state - loading
-                  return Scaffold(
+                stream: FirebaseAuth.instance.authStateChanges(),
+                builder: (context, streamSnapshot) {
+                  if (streamSnapshot.hasError) {
+                    return Scaffold(
                       body: Center(
-                        child: Text("Checking Authentication...",
-                          style: Constants.regularHeading,
-                        ),
-                      )
-                  );
-                }
-              }
-            );
+                        child: Text("Error: ${streamSnapshot.error}"),
+                      ),
+                    );
+                  }
+
+                  // Connection state active - Do the user login inside the if statement
+                  if (streamSnapshot.connectionState ==
+                      ConnectionState.active) {
+                    // Get the user
+                    User? user = streamSnapshot.data as User?;
+
+                    //if the user is null, we're not logged in
+                    if (user == null) {
+                      // head to login page
+                      return LoginPage();
+                    } else {
+                      // The user is logged in head to homepage
+                      return HomePage();
+                    }
+                  } else {
+                    // checking the auth state - loading
+                    return Scaffold(
+                        body: Center(
+                      child: Text(
+                        "Checking Authentication...",
+                        style: Constants.regularHeading,
+                      ),
+                    ));
+                  }
+                });
           }
           return Scaffold(
               body: Center(
-                child: Text("App Initializing..",
-                    style: Constants.regularHeading,
-                ),
-              )
-          );
-        }
-    );
+            child: Text(
+              "App Initializing..",
+              style: Constants.regularHeading,
+            ),
+          ));
+        });
   }
 }

@@ -18,9 +18,9 @@ class MyApp extends StatelessWidget {
         textTheme: GoogleFonts.poppinsTextTheme(
           Theme.of(context).textTheme,
         ),
-          accentColor: Color(0xFFFF1E00),
-          //colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Color(0xFFFF1E00)),
-          //colorScheme: Color(0xFFFF1E00))
+        accentColor: Color(0xFFFF1E00),
+        //colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Color(0xFFFF1E00)),
+        //colorScheme: Color(0xFFFF1E00))
       ),
       home: LandingPage(),
     );

@@ -1,4 +1,3 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -11,33 +10,32 @@ class RegisterPage extends StatefulWidget {
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
-
-
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-
   // Build an alert dialog to display an error
   Future<void> _alertDialogBuilder(String error) async {
     return showDialog(
         context: context,
-        barrierDismissible: false, //this will force the dialog to only be closed
+        barrierDismissible:
+            false, //this will force the dialog to only be closed
         // when the close dialog button is tapped
-        builder: (context){
-      return AlertDialog(
-        title: Text ("Error"),
-        content: Container(
-          child: Text(error),
-        ),
-        actions: [
-          TextButton (
-            onPressed: () { Navigator.pop(context); },
-            child: Text("Close Dialog"),
-          )
-        ],
-      );
-    }
-    );
+        builder: (context) {
+          return AlertDialog(
+            title: Text("Error"),
+            content: Container(
+              child: Text(error),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text("Close Dialog"),
+              )
+            ],
+          );
+        });
   }
 
   // Create a new user account
@@ -45,9 +43,9 @@ class _RegisterPageState extends State<RegisterPage> {
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: _registerEmail, password: _registerPassword);
-    return null;
+      return null;
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password'){
+      if (e.code == 'weak-password') {
         return 'The password provided is too weak.';
       } else if (e.code == 'email-already-in-use') {
         return 'The account already exists for that email.';
@@ -60,7 +58,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   void _submitForm() async {
     // Set the form to loading state
-    setState (() {
+    setState(() {
       _registerFormLoading = true;
     });
 
@@ -72,7 +70,7 @@ class _RegisterPageState extends State<RegisterPage> {
       _alertDialogBuilder(_createAccountFeedback);
 
       // Set the form to regular state (not loading)
-      setState ((){
+      setState(() {
         _registerFormLoading = false;
       });
     } else {
@@ -114,29 +112,28 @@ class _RegisterPageState extends State<RegisterPage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                padding: EdgeInsets.only(
-                    top: 20.0
-                ),
-                child: Text("Create A New Account",
+                padding: EdgeInsets.only(top: 20.0),
+                child: Text(
+                  "Create A New Account",
                   textAlign: TextAlign.center,
                   style: Constants.boldHeading,
                 ),
               ),
-              Column (
+              Column(
                 children: [
                   CustomInput(
                     hintText: "Email",
-                    onChanged: (value){
+                    onChanged: (value) {
                       _registerEmail = value;
                     },
-                    onSubmitted: (value){
+                    onSubmitted: (value) {
                       _passwordFocusNode.requestFocus();
                     },
                     textInputAction: TextInputAction.next,
                   ),
                   CustomInput(
-                    hintText: "Password" ,
-                    onChanged: (value){
+                    hintText: "Password",
+                    onChanged: (value) {
                       _registerPassword = value;
                     },
                     focusNode: _passwordFocusNode,
@@ -147,12 +144,12 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                   CustomBtn(
                     text: "Create New Account",
-                    onPressed: (){
+                    onPressed: () {
                       //print("Create New Account");
                       // Open the dialog
                       //_alertDialogBuilder();
                       _submitForm();
-                      setState (() {
+                      setState(() {
                         _registerFormLoading = true;
                       });
                     },
@@ -166,13 +163,13 @@ class _RegisterPageState extends State<RegisterPage> {
                   bottom: 16.0,
                 ),
                 child: CustomBtn(
-                  text: "Back to Login",
-                  onPressed: (){
+                    text: "Back to Login",
+                    onPressed: () {
                       Navigator.pop(context);
-                  },
-                  outlineBtn: true,
-                  isLoading: false //_registerFormLoading,
-                ),
+                    },
+                    outlineBtn: true,
+                    isLoading: false //_registerFormLoading,
+                    ),
               ),
             ],
           ),

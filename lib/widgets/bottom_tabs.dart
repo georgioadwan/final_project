@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class BottomTabs extends StatefulWidget {
-
   final int? selectedTab;
   final Function(int)? tabPressed;
   BottomTabs({this.selectedTab, this.tabPressed});
@@ -37,21 +36,21 @@ class _BottomTabsState extends State<BottomTabs> {
             imagePath: "assets/images/home.png",
             selected: _selectedTab == 0 ? true : false,
             onPressed: () {
-                widget.tabPressed!(0);
+              widget.tabPressed!(0);
             },
           ),
           BottomTabBtn(
             imagePath: "assets/images/search.png",
             selected: _selectedTab == 1 ? true : false,
             onPressed: () {
-                widget.tabPressed!(1);
+              widget.tabPressed!(1);
             },
           ),
           BottomTabBtn(
             imagePath: "assets/images/bookmark.png",
             selected: _selectedTab == 2 ? true : false,
             onPressed: () {
-                widget.tabPressed!(2);
+              widget.tabPressed!(2);
             },
           ),
           BottomTabBtn(

@@ -1,4 +1,3 @@
-
 import 'package:final_project/screens/register_page.dart';
 import 'package:final_project/widgets/custom_button.dart';
 import 'package:final_project/widgets/custom_input.dart';
@@ -36,8 +35,7 @@ class _LoginPageState extends State<LoginPage> {
               )
             ],
           );
-        }
-    );
+        });
   }
 
   Future<String?> _loginAccount() async {
@@ -101,7 +99,6 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -112,10 +109,9 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                padding: EdgeInsets.only(
-                    top: 24.0
-                ),
-                child: Text("Welcome User, \nLogin to your account",
+                padding: EdgeInsets.only(top: 24.0),
+                child: Text(
+                  "Welcome User, \nLogin to your account",
                   textAlign: TextAlign.center,
                   style: Constants.boldHeading,
                 ),
@@ -163,8 +159,7 @@ class _LoginPageState extends State<LoginPage> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => RegisterPage())
-                    );
+                            builder: (context) => RegisterPage()));
                   },
                   outlineBtn: true,
                   isLoading: false,
@@ -177,4 +172,3 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
-
