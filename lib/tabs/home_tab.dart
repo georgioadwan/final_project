@@ -71,7 +71,7 @@ class HomeTab extends StatelessWidget {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                  Text("${(document.data() as Map<String, dynamic>)["name"]}",
+                                  Text("${(document.data() as Map<String, dynamic>)['name']}",
                                   style: Constants.regularHeading),
                                   Text ("\$${(document.data() as Map<String, dynamic>)['price']}",
                                   style: TextStyle(

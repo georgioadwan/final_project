@@ -36,7 +36,7 @@ class _ProductPageState extends State<ProductPage> {
               if (snapshot.connectionState == ConnectionState.done) {
                 // firebase Document Data Map
                 Map<String, dynamic> documentData =
-                    snapshot.data as Map<String, dynamic>;
+                    snapshot.data as  Map<String, dynamic>;
 
                 // List of images
                 List imageList = documentData['images'];
@@ -91,7 +91,7 @@ class _ProductPageState extends State<ProductPage> {
                         horizontal: 24.0,
                       ),
                       child: Text(
-                        "${documentData['size']}",
+                        "Select Size",
                         style: Constants.regularDarkText,
                       ),
                     ),
