@@ -1,4 +1,5 @@
 //import 'package:final_project/constants.dart';
+import 'package:final_project/services/firebase_services.dart';
 import 'package:final_project/tabs/home_tab.dart';
 import 'package:final_project/tabs/saved_tab.dart';
 import 'package:final_project/tabs/search_tab.dart';
@@ -13,10 +14,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+  FirebaseServices _firebaseServices = FirebaseServices();
   late PageController _tabsPageController;
   int _selectedTab = 0;
+
   @override
   void initState() {
+    print("UserID: ${_firebaseServices.getUserID()}");
     _tabsPageController = PageController();
     super.initState();
   }

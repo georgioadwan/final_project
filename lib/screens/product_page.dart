@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:final_project/constants.dart';
+import 'package:final_project/services/firebase_services.dart';
 import 'package:final_project/widgets/custom_action_bar.dart';
 import 'package:final_project/widgets/images_swipe.dart';
 import 'package:final_project/widgets/painting_size.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ProductPage extends StatefulWidget {
@@ -14,8 +16,21 @@ class ProductPage extends StatefulWidget {
 }
 
 class _ProductPageState extends State<ProductPage> {
-  final CollectionReference<Map<String, dynamic>> _productsRef =
-      FirebaseFirestore.instance.collection("Paintings");
+
+  FirebaseServices _firebaseServices = FirebaseServices();
+
+  String _selectedPaintingSize = "0";
+
+  Future _addToCart () {
+    return _firebaseServices.usersRef.doc(_firebaseServices.getUserID()).collection("Cart").doc(widget.productId).set(
+      {
+        "size": _selectedPaintingSize
+      }
+    );
+  }
+
+  final SnackBar _snackBar = SnackBar(content: Text("Product Added to the Cart"));
+
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +38,7 @@ class _ProductPageState extends State<ProductPage> {
         body: Stack(
       children: [
         FutureBuilder(
-            future: _productsRef.doc(widget.productId).get(),
+            future: _firebaseServices.productsRef.doc(widget.productId).get(),
             builder: (context, snapshot) {
               if (snapshot.hasError) {
                 return Scaffold(
@@ -41,6 +56,10 @@ class _ProductPageState extends State<ProductPage> {
                 // List of images
                 List imageList = documentData['images'];
                 List paintingSizes = documentData['size'];
+
+                // Set an initial size
+                _selectedPaintingSize = paintingSizes[0];
+
                 return ListView(
                   padding: EdgeInsets.all(0),
                   children: [
@@ -97,6 +116,9 @@ class _ProductPageState extends State<ProductPage> {
                     ),
                     PaintingSize(
                       paintingSizes: paintingSizes,
+                      onSelected: (size) {
+                        _selectedPaintingSize = size;
+                      },
                     ),
                     Padding(
                       padding: const EdgeInsets.all(24.0),
@@ -119,22 +141,28 @@ class _ProductPageState extends State<ProductPage> {
                             ),
                           ),
                           Expanded(
-                            child: Container(
-                              height: 65.0,
-                              margin: EdgeInsets.only(
-                                left: 16.0,
+                            child: GestureDetector(
+                              onTap: () async {
+                                await _addToCart();
+                                Scaffold.of(context).showSnackBar(_snackBar);
+                              },
+                              child: Container(
+                                height: 65.0,
+                                margin: EdgeInsets.only(
+                                  left: 16.0,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Colors.black,
+                                  borderRadius: BorderRadius.circular(12.0),
+                                ),
+                                alignment: Alignment.center,
+                                child: Text("Add to Cart",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.w600,
+                                ),),
                               ),
-                              decoration: BoxDecoration(
-                                color: Colors.black,
-                                borderRadius: BorderRadius.circular(12.0),
-                              ),
-                              alignment: Alignment.center,
-                              child: Text("Add to Cart",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16.0,
-                                fontWeight: FontWeight.w600,
-                              ),),
                             ),
                           )
                         ],

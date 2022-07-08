@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 class PaintingSize extends StatefulWidget {
   final List? paintingSizes;
-  PaintingSize ({this.paintingSizes});
+  final Function(String)? onSelected;
+  PaintingSize ({this.paintingSizes, this.onSelected});
 
   @override
   State<PaintingSize> createState() => _PaintingSizeState();
@@ -23,6 +24,7 @@ class _PaintingSizeState extends State<PaintingSize> {
           for (var i = 0; i <widget.paintingSizes!.length; i++)
             GestureDetector(
               onTap: () {
+                widget.onSelected!("${widget.paintingSizes![i]}");
                 setState ((){
                   _selected = i;
                 });
