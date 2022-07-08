@@ -6,6 +6,8 @@ import 'package:final_project/services/firebase_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../screens/cart_page.dart';
+
 class CustomActionBar extends StatelessWidget {
 
   final String? title;
@@ -73,34 +75,40 @@ class CustomActionBar extends StatelessWidget {
             title ?? "Action Bar",
             style: Constants.boldHeading,
           ),
-          Container(
-            width: 42.0,
-            height: 42.0,
-            decoration: BoxDecoration(
-              color: Colors.black,
-              borderRadius: BorderRadius.circular(8.0),
+          GestureDetector(
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(
+                  builder: (context) => CartPage(),));
+            },
+            child: Container(
+              width: 42.0,
+              height: 42.0,
+              decoration: BoxDecoration(
+                color: Colors.black,
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              alignment: Alignment.center ,
+              child: StreamBuilder (
+                stream: _usersRef.doc(_firebaseServices.getUserID()).collection("Cart").snapshots(),
+                builder: (context,snapshot) {
+                  int _totalItems = 0;
+
+                  if (snapshot.connectionState == ConnectionState.active){
+                    List _documents = snapshot.data!.docs;
+                    _totalItems = _documents.length;
+                  }
+                  return Text (
+                    "$_totalItems" ?? "0",
+                    style: TextStyle (
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                    ),
+                  );
+                },
+
+              )
             ),
-            alignment: Alignment.center ,
-            child: StreamBuilder (
-              stream: _usersRef.doc(_firebaseServices.getUserID()).collection("Cart").snapshots(),
-              builder: (context,snapshot) {
-                int _totalItems = 0;
-
-                if (snapshot.connectionState == ConnectionState.active){
-                  List _documents = snapshot.data!.docs;
-                  _totalItems = _documents.length;
-                }
-                return Text (
-                  "$_totalItems" ?? "0",
-                  style: TextStyle (
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white,
-                  ),
-                );
-              },
-
-            )
           ),
         ],
       ),
