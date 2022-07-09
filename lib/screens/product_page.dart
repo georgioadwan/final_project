@@ -29,6 +29,14 @@ class _ProductPageState extends State<ProductPage> {
     );
   }
 
+  Future _addToSaved () {
+    return _firebaseServices.usersRef.doc(_firebaseServices.getUserID()).collection("Saved").doc(widget.productId).set(
+        {
+          "size": _selectedPaintingSize
+        }
+    );
+  }
+
   final SnackBar _snackBar = SnackBar(content: Text("Product Added to the Cart"));
 
 
@@ -125,19 +133,25 @@ class _ProductPageState extends State<ProductPage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Container(
-                            width: 65.0,
-                            height: 65.0,
-                            decoration: BoxDecoration(
-                              color: Color(0xFFDCDCDC),
-                              borderRadius: BorderRadius.circular(12.0),
-                            ),
-                            alignment: Alignment.center,
-                            child: Image(
-                              image: AssetImage(
-                                "assets/images/bookmark.png",
+                          GestureDetector(
+                            onTap: () async {
+                              await _addToSaved();
+                              Scaffold.of(context).showSnackBar(_snackBar);
+              },
+                            child: Container(
+                              width: 65.0,
+                              height: 65.0,
+                              decoration: BoxDecoration(
+                                color: Color(0xFFDCDCDC),
+                                borderRadius: BorderRadius.circular(12.0),
                               ),
-                              height: 22.0,
+                              alignment: Alignment.center,
+                              child: Image(
+                                image: AssetImage(
+                                  "assets/images/bookmark.png",
+                                ),
+                                height: 22.0,
+                              ),
                             ),
                           ),
                           Expanded(
