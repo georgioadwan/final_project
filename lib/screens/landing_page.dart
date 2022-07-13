@@ -5,8 +5,29 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-class LandingPage extends StatelessWidget {
+class LandingPage extends StatefulWidget {
+  @override
+  State<LandingPage> createState() => _LandingPageState();
+}
+
+class _LandingPageState extends State<LandingPage> {
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+
+  Stopwatch stopwatch = Stopwatch();
+
+  Duration? elapsed;
+
+  @override
+  initState() {
+    super.initState();
+    stopwatch.start();
+  }
+
+  @override
+  dispose() {
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -36,8 +57,7 @@ class LandingPage extends StatelessWidget {
                   }
 
                   // Connection state active - Do the user login inside the if statement
-                  if (streamSnapshot.connectionState ==
-                      ConnectionState.active) {
+                  if (streamSnapshot.connectionState == ConnectionState.active) {
                     // Get the user
                     User? user = streamSnapshot.data as User?;
 
@@ -46,8 +66,12 @@ class LandingPage extends StatelessWidget {
                       // head to login page
                       return LoginPage();
                     } else {
+                      elapsed = stopwatch.elapsed;
+                      print(elapsed);
+                      print('here');
+                      stopwatch.stop();
                       // The user is logged in head to homepage
-                      return HomePage();
+                      return HomePage(elapsed: elapsed);
                     }
                   } else {
                     // checking the auth state - loading

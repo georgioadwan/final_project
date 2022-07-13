@@ -36,6 +36,7 @@ class _ProductPageState extends State<ProductPage> {
   }
 
   final SnackBar _snackBar = SnackBar(content: Text("Product Added to the Cart"));
+  final SnackBar savedSnackBar = SnackBar(content: Text('Product saved for later'));
 
   @override
   Widget build(BuildContext context) {
@@ -132,7 +133,7 @@ class _ProductPageState extends State<ProductPage> {
                           GestureDetector(
                             onTap: () async {
                               await _addToSaved();
-                              Scaffold.of(context).showSnackBar(_snackBar);
+                              Scaffold.of(context).showSnackBar(savedSnackBar);
                             },
                             child: Container(
                               width: 65.0,

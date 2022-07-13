@@ -7,18 +7,21 @@ import 'package:final_project/widgets/bottom_tabs.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({
+    Key? key,
+    this.elapsed,
+  }) : super(key: key);
+
+  final Duration? elapsed;
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-
   FirebaseServices _firebaseServices = FirebaseServices();
   late PageController _tabsPageController;
   int _selectedTab = 0;
-
   @override
   void initState() {
     print("UserID: ${_firebaseServices.getUserID()}");
@@ -47,7 +50,7 @@ class _HomePageState extends State<HomePage> {
               });
             },
             children: [
-              HomeTab(),
+              HomeTab(elapsed: widget.elapsed),
               SearchTab(),
               SavedTab(),
             ],
@@ -57,9 +60,7 @@ class _HomePageState extends State<HomePage> {
           selectedTab: _selectedTab,
           tabPressed: (num) {
             setState(() {
-              _tabsPageController.animateToPage(num,
-                  duration: Duration(microseconds: 300),
-                  curve: Curves.easeOutCubic);
+              _tabsPageController.animateToPage(num, duration: Duration(microseconds: 300), curve: Curves.easeOutCubic);
             });
           },
         ),
