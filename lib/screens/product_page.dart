@@ -57,12 +57,6 @@ class _ProductPageState extends State<ProductPage> {
                 // firebase Document Data Map
                 var documentData = snapshot.data! as DocumentSnapshot;
 
-                print(documentData['images']);
-                print(documentData['name']);
-                print(documentData['price']);
-                print(documentData['desc']);
-                print(documentData['size']);
-
                 // List of images
                 List imageList = documentData['images'];
                 List paintingSizes = documentData['size'];

@@ -53,7 +53,7 @@ class SavedTab extends StatelessWidget {
                             );
                           }
                           if (paintingSnap.connectionState == ConnectionState.done) {
-                            Map _paintingMap = paintingSnap.data as Map<String, dynamic>;
+                            var _paintingMap = paintingSnap.data! as DocumentSnapshot;
 
                             return Padding(
                               padding: const EdgeInsets.symmetric(

@@ -85,15 +85,14 @@ class CustomActionBar extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8.0),
                 ),
                 alignment: Alignment.center,
-                child: StreamBuilder(
-                  stream: _usersRef.doc(_firebaseServices.getUserID()).collection("Cart").snapshots(),
+                child: FutureBuilder<QuerySnapshot>(
+                  future: _usersRef.doc(_firebaseServices.getUserID()).collection("Cart").get(),
                   builder: (context, snapshot) {
                     int _totalItems = 0;
 
-                    if (snapshot.connectionState == ConnectionState.active) {
-                      // List _documents = snapshot.data!.docs;
-                      // _totalItems = _documents.length;
-                      _totalItems = 0;
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      print('jere');
+                      _totalItems = snapshot.data!.docs.length;
                     }
                     return Text(
                       "$_totalItems",
