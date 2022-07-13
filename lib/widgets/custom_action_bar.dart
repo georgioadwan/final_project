@@ -91,7 +91,6 @@ class CustomActionBar extends StatelessWidget {
                     int _totalItems = 0;
 
                     if (snapshot.connectionState == ConnectionState.done) {
-                      print('jere');
                       _totalItems = snapshot.data!.docs.length;
                     }
                     return Text(

@@ -68,7 +68,6 @@ class _LandingPageState extends State<LandingPage> {
                     } else {
                       elapsed = stopwatch.elapsed;
                       print(elapsed);
-                      print('here');
                       stopwatch.stop();
                       // The user is logged in head to homepage
                       return HomePage(elapsed: elapsed);
