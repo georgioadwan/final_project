@@ -36,7 +36,7 @@ class _SearchTabState extends State<SearchTab> {
           )
         else
           FutureBuilder<QuerySnapshot>(
-              future: _firebaseServices.productsRef.orderBy("name").startAt([_searchString]).endAt(["$_searchString\uf8ff"]).get(),
+              future: _firebaseServices.productsRef.orderBy("name").get(),
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
                   return Scaffold(
@@ -55,19 +55,22 @@ class _SearchTabState extends State<SearchTab> {
                       bottom: 12.0,
                     ),
                     children: snapshot.data!.docs.map((document) {
-                      return ProductCard(
-                        title: document['name'],
-                        imageUrl: document['images'][0],
-                        price: "\$${document['price']}",
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ProductPage(
-                                      productId: document.id,
-                                    )),
-                          );
-                        },
+                      return Visibility(
+                        visible: (document['name'].toLowerCase().contains(_searchString)) ? true : false,
+                        child: ProductCard(
+                          title: document['name'],
+                          imageUrl: document['images'][0],
+                          price: "\$${document['price']}",
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ProductPage(
+                                        productId: document.id,
+                                      )),
+                            );
+                          },
+                        ),
                       );
                     }).toList(),
                   );
@@ -85,7 +88,7 @@ class _SearchTabState extends State<SearchTab> {
           ),
           child: CustomInput(
             hintText: "Search here...",
-            onSubmitted: (value) {
+            onChanged: (value) {
               setState(() {
                 _searchString = value.toLowerCase();
               });

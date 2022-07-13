@@ -59,8 +59,7 @@ class _CartPageState extends State<CartPage> {
                               );
                             }
                             if (paintingSnap.connectionState == ConnectionState.done) {
-                              // Map _paintingMap = paintingSnap.data!.data();
-                              Map _paintingMap = {};
+                              var _paintingMap = paintingSnap.data! as DocumentSnapshot;
 
                               return Padding(
                                 padding: const EdgeInsets.symmetric(

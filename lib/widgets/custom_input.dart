@@ -1,4 +1,3 @@
-
 import 'package:final_project/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -9,11 +8,10 @@ class CustomInput extends StatelessWidget {
   final FocusNode? focusNode;
   final TextInputAction? textInputAction;
   final bool? isPasswordField;
-  CustomInput({this.hintText, this.onChanged, this.onSubmitted, this.focusNode, this.textInputAction, this.isPasswordField });
+  CustomInput({this.hintText, this.onChanged, this.onSubmitted, this.focusNode, this.textInputAction, this.isPasswordField});
 
   @override
   Widget build(BuildContext context) {
-
     return Container(
       margin: EdgeInsets.symmetric(
         vertical: 8.0,
@@ -28,20 +26,19 @@ class CustomInput extends StatelessWidget {
         focusNode: focusNode,
         onChanged: (value) {
           if (onChanged != null) {
-            onChanged! (value);
+            onChanged!(value);
           } else {
             return;
           }
         },
         textInputAction: textInputAction,
         decoration: InputDecoration(
-          border: InputBorder.none,
-          hintText: hintText,
-          contentPadding: EdgeInsets.symmetric(
-            horizontal: 24.0,
-            vertical: 20.0,
-          )
-        ),
+            border: InputBorder.none,
+            hintText: hintText,
+            contentPadding: EdgeInsets.symmetric(
+              horizontal: 24.0,
+              vertical: 20.0,
+            )),
         style: Constants.regularDarkText,
       ),
     );
