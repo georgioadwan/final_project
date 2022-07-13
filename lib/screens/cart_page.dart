@@ -4,8 +4,6 @@ import 'package:final_project/services/firebase_services.dart';
 import 'package:final_project/widgets/custom_action_bar.dart';
 import 'package:flutter/material.dart';
 
-import '../constants.dart';
-
 class CartPage extends StatefulWidget {
   const CartPage({Key? key}) : super(key: key);
 
@@ -22,10 +20,7 @@ class _CartPageState extends State<CartPage> {
       body: Stack(
         children: [
           FutureBuilder<QuerySnapshot>(
-              future: _firebaseServices.usersRef
-                  .doc(_firebaseServices.getUserID())
-                  .collection("Cart")
-                  .get(),
+              future: _firebaseServices.usersRef.doc(_firebaseServices.getUserID()).collection("Cart").get(),
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
                   return Scaffold(
@@ -54,9 +49,7 @@ class _CartPageState extends State<CartPage> {
                                       )));
                         },
                         child: FutureBuilder(
-                          future: _firebaseServices.productsRef
-                              .doc(document.id)
-                              .get(),
+                          future: _firebaseServices.productsRef.doc(document.id).get(),
                           builder: (context, paintingSnap) {
                             if (paintingSnap.hasError) {
                               return Container(
@@ -65,9 +58,9 @@ class _CartPageState extends State<CartPage> {
                                 ),
                               );
                             }
-                            if (paintingSnap.connectionState ==
-                                ConnectionState.done) {
-                              Map _paintingMap = paintingSnap.data!.data();
+                            if (paintingSnap.connectionState == ConnectionState.done) {
+                              // Map _paintingMap = paintingSnap.data!.data();
+                              Map _paintingMap = {};
 
                               return Padding(
                                 padding: const EdgeInsets.symmetric(
@@ -81,8 +74,7 @@ class _CartPageState extends State<CartPage> {
                                       width: 90,
                                       height: 90,
                                       child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
+                                          borderRadius: BorderRadius.circular(8.0),
                                           child: Image.network(
                                             "${_paintingMap['images'][0]}",
                                             fit: BoxFit.cover,
@@ -93,17 +85,12 @@ class _CartPageState extends State<CartPage> {
                                         left: 16.0,
                                       ),
                                       child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Text(
                                             "${_paintingMap['name']}",
-                                            style: TextStyle(
-                                                fontSize: 18.0,
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.w600),
+                                            style: TextStyle(fontSize: 18.0, color: Colors.black, fontWeight: FontWeight.w600),
                                           ),
                                           Padding(
                                             padding: const EdgeInsets.symmetric(
@@ -119,7 +106,7 @@ class _CartPageState extends State<CartPage> {
                                             ),
                                           ),
                                           Text(
-                                            "Size - ${document.data()!['size']}",
+                                            "Size - ${document['size']}",
                                             style: TextStyle(
                                               fontWeight: FontWeight.w600,
                                               fontSize: 16.0,

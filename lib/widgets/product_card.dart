@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../constants.dart';
-import '../screens/product_page.dart';
 
 class ProductCard extends StatelessWidget {
   final String? productID;
@@ -9,15 +8,15 @@ class ProductCard extends StatelessWidget {
   final String? imageUrl;
   final String? title;
   final String? price;
-  ProductCard ({this.onPressed, this.imageUrl, this.title, this.productID, this.price});
+  ProductCard({this.onPressed, this.imageUrl, this.title, this.productID, this.price});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-        Navigator.push(context, MaterialPageRoute(
-            builder: (context) => ProductPage(productId: productID,)
-        ));
+      onTap: () {
+        if (onPressed != null) {
+          onPressed!();
+        }
       },
       child: Container(
         decoration: BoxDecoration(
@@ -49,9 +48,9 @@ class ProductCard extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(title!,
-                          style: Constants.regularHeading),
-                      Text (price!,
+                      Text(title!, style: Constants.regularHeading),
+                      Text(
+                        price!,
                         style: TextStyle(
                           fontSize: 18.0,
                           color: Theme.of(context).accentColor,
@@ -60,8 +59,7 @@ class ProductCard extends StatelessWidget {
                       ),
                     ],
                   ),
-                )
-            )
+                ))
           ],
         ),
       ),

@@ -4,7 +4,6 @@ import 'package:final_project/services/firebase_services.dart';
 import 'package:final_project/widgets/custom_action_bar.dart';
 import 'package:final_project/widgets/images_swipe.dart';
 import 'package:final_project/widgets/painting_size.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ProductPage extends StatefulWidget {
@@ -16,29 +15,27 @@ class ProductPage extends StatefulWidget {
 }
 
 class _ProductPageState extends State<ProductPage> {
-
   FirebaseServices _firebaseServices = FirebaseServices();
 
   String _selectedPaintingSize = "0";
 
-  Future _addToCart () {
-    return _firebaseServices.usersRef.doc(_firebaseServices.getUserID()).collection("Cart").doc(widget.productId).set(
-      {
-        "size": _selectedPaintingSize
-      }
-    );
+  Future _addToCart() {
+    return _firebaseServices.usersRef
+        .doc(_firebaseServices.getUserID())
+        .collection("Cart")
+        .doc(widget.productId)
+        .set({"size": _selectedPaintingSize});
   }
 
-  Future _addToSaved () {
-    return _firebaseServices.usersRef.doc(_firebaseServices.getUserID()).collection("Saved").doc(widget.productId).set(
-        {
-          "size": _selectedPaintingSize
-        }
-    );
+  Future _addToSaved() {
+    return _firebaseServices.usersRef
+        .doc(_firebaseServices.getUserID())
+        .collection("Saved")
+        .doc(widget.productId)
+        .set({"size": _selectedPaintingSize});
   }
 
   final SnackBar _snackBar = SnackBar(content: Text("Product Added to the Cart"));
-
 
   @override
   Widget build(BuildContext context) {
@@ -58,8 +55,13 @@ class _ProductPageState extends State<ProductPage> {
 
               if (snapshot.connectionState == ConnectionState.done) {
                 // firebase Document Data Map
-                Map<String, dynamic> documentData =
-                    snapshot.data as  Map<String, dynamic>;
+                var documentData = snapshot.data! as DocumentSnapshot;
+
+                print(documentData['images']);
+                print(documentData['name']);
+                print(documentData['price']);
+                print(documentData['desc']);
+                print(documentData['size']);
 
                 // List of images
                 List imageList = documentData['images'];
@@ -72,7 +74,7 @@ class _ProductPageState extends State<ProductPage> {
                   padding: EdgeInsets.all(0),
                   children: [
                     ImageSwipe(
-                      imageList: [imageList],
+                      imageList: imageList,
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(
@@ -137,7 +139,7 @@ class _ProductPageState extends State<ProductPage> {
                             onTap: () async {
                               await _addToSaved();
                               Scaffold.of(context).showSnackBar(_snackBar);
-              },
+                            },
                             child: Container(
                               width: 65.0,
                               height: 65.0,
@@ -170,12 +172,14 @@ class _ProductPageState extends State<ProductPage> {
                                   borderRadius: BorderRadius.circular(12.0),
                                 ),
                                 alignment: Alignment.center,
-                                child: Text("Add to Cart",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.w600,
-                                ),),
+                                child: Text(
+                                  "Add to Cart",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
                               ),
                             ),
                           )

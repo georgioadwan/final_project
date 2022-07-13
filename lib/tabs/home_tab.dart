@@ -4,11 +4,8 @@ import 'package:final_project/widgets/custom_action_bar.dart';
 import 'package:final_project/widgets/product_card.dart';
 import 'package:flutter/material.dart';
 
-import '../constants.dart';
-
 class HomeTab extends StatelessWidget {
-  final CollectionReference<Map<String, dynamic>> _productsRef =
-      FirebaseFirestore.instance.collection("Paintings");
+  final CollectionReference<Map<String, dynamic>> _productsRef = FirebaseFirestore.instance.collection("Paintings");
 
   @override
   Widget build(BuildContext context) {
@@ -36,13 +33,18 @@ class HomeTab extends StatelessWidget {
                   ),
                   children: snapshot.data!.docs.map((document) {
                     return ProductCard(
-                      title: document.data()['name'],
-                      imageUrl: document.data()!['images'][0],
-                      price: "\$${document.data()!['price']}",
+                      title: document['name'],
+                      imageUrl: document['images'][0],
+                      price: "\$${document['price']}",
                       onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder:
-                        (context) => ProductPage(productId: document.id
-                          ,)),);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ProductPage(
+                              productId: document.id,
+                            ),
+                          ),
+                        );
                       },
                     );
                   }).toList(),
