@@ -13,14 +13,14 @@ class LandingPage extends StatefulWidget {
 class _LandingPageState extends State<LandingPage> {
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
 
-  Stopwatch stopwatch = Stopwatch();
+  //Stopwatch stopwatch = Stopwatch();
 
-  Duration? elapsed;
+  //Duration? elapsed;
 
   @override
   initState() {
     super.initState();
-    stopwatch.start();
+    //stopwatch.start();
   }
 
   @override
@@ -66,11 +66,11 @@ class _LandingPageState extends State<LandingPage> {
                       // head to login page
                       return LoginPage();
                     } else {
-                      elapsed = stopwatch.elapsed;
-                      print(elapsed);
-                      stopwatch.stop();
+                      //elapsed = stopwatch.elapsed;
+                      //print(elapsed);
+                      //stopwatch.stop();
                       // The user is logged in head to homepage
-                      return HomePage(elapsed: elapsed);
+                      return HomePage();//elapsed: elapsed);
                     }
                   } else {
                     // checking the auth state - loading
